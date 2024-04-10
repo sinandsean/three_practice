@@ -21,7 +21,10 @@ function BlackShipMesh({
   return (
     <mesh position={position}>
       <planeGeometry args={[0.9, 0.9]} />
-      <meshStandardMaterial map={flipY ? texture : flippedTexture} />
+      <meshStandardMaterial
+        map={flipY ? texture : flippedTexture}
+        transparent={true}
+      />
     </mesh>
   );
 }
