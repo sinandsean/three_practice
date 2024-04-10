@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { times } from "lodash";
 import BlackShipMesh from "./BlackShipMesh";
+import WhiteShipMesh from "./WhiteShipMesh";
 
 export const GEOMETRY_SIZE = 0.9;
 
@@ -30,6 +31,7 @@ function Screen() {
           />
         ))
       )}
+      <WhiteShipMesh position={[0, 0, 0]} />
     </Canvas>
   );
 }
