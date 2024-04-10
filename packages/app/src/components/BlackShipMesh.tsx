@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import * as THREE from "three";
 import { TextureLoader } from "three";
 import blackship from "../assets/spaceship_black.png";
+import { GEOMETRY_SIZE } from "./Screen";
 
 function BlackShipMesh({
   position,
@@ -20,7 +21,7 @@ function BlackShipMesh({
 
   return (
     <mesh position={position}>
-      <planeGeometry args={[0.9, 0.9]} />
+      <planeGeometry args={[GEOMETRY_SIZE, GEOMETRY_SIZE]} />
       <meshStandardMaterial
         map={flipY ? texture : flippedTexture}
         transparent={true}
