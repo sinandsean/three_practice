@@ -22,12 +22,12 @@ function Screen() {
             key={`${idx1}-${idx2}`}
             position={[
               idx2 % 2 === 0
-                ? idx1 - FACTOR - GEOMETRY_SIZE / 2
-                : idx1 - FACTOR,
+                ? idx1 - FACTOR
+                : idx1 - FACTOR - GEOMETRY_SIZE / 2,
               idx2 - FACTOR,
               0,
             ]}
-            flipY={(idx1 + idx2) % 2 === 0}
+            flipY={(idx1 + idx2) % 2 !== 0}
           />
         ))
       )}
