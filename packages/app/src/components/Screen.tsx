@@ -4,8 +4,10 @@ import BlackShipMesh from "./BlackShipMesh";
 import WhiteShipMesh from "./WhiteShipMesh";
 
 export const GEOMETRY_SIZE = 0.9;
+export const CHANGE_START_DELAY = 3;
+export const CHANGE_DURATION = 5;
 
-const COUNTS = 30;
+export const COUNTS = 40;
 const FACTOR = COUNTS / 2;
 
 function Screen() {

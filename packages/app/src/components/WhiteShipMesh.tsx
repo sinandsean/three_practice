@@ -6,6 +6,7 @@ import { TextureLoader } from "three";
 import blueship from "../assets/spaceship_blue.png";
 import whiteship from "../assets/spaceship_white.png";
 import ImageTransitionMaterial from "./ImageTransitionMaterial";
+import { CHANGE_DURATION, CHANGE_START_DELAY } from "./Screen";
 
 extend({
   ImageTransitionMaterial,
@@ -25,7 +26,7 @@ function WhiteShipMesh({ position }: { position?: Vector3 }) {
 
     gsap.to(dispFactor, {
       value: 1,
-      duration: 3,
+      duration: CHANGE_START_DELAY,
       ease: "sine.inOut",
       onStart: () => {
         currentImage.value = new THREE.Texture();
@@ -38,8 +39,8 @@ function WhiteShipMesh({ position }: { position?: Vector3 }) {
 
     gsap.to(dispFactor, {
       value: 1,
-      delay: 3,
-      duration: 5,
+      delay: CHANGE_START_DELAY,
+      duration: CHANGE_DURATION,
       ease: "sine.inOut",
       onStart: () => {
         currentImage.value = whiteshipTexture;
