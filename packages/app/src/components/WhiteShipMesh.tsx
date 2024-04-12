@@ -1,41 +1,61 @@
-import { Vector3, useFrame, useLoader } from "@react-three/fiber";
-import { useRef } from "react";
+import { Vector3, extend, useLoader } from "@react-three/fiber";
+import gsap from "gsap";
+import { useCallback, useEffect, useRef } from "react";
 import * as THREE from "three";
 import { TextureLoader } from "three";
+import blueship from "../assets/spaceship_blue.png";
 import whiteship from "../assets/spaceship_white.png";
+import ImageTransitionMaterial from "./ImageTransitionMaterial";
 
-const FADE_IN_START_SECONDS = 2;
-const SCALE_SIZE = 2;
+extend({
+  ImageTransitionMaterial,
+});
 
 function WhiteShipMesh({ position }: { position?: Vector3 }) {
-  const texture = useLoader(TextureLoader, whiteship) as THREE.Texture;
-  const meshRef = useRef<THREE.Mesh>(null!);
-  const materialRef = useRef<THREE.MeshStandardMaterial>(null!);
+  const whiteshipTexture = useLoader(TextureLoader, whiteship) as THREE.Texture;
+  const blueshipTexture = useLoader(TextureLoader, blueship);
 
-  useFrame((state, delta) => {
-    const meshScale = meshRef.current.scale.x;
-    const { elapsedTime } = state.clock;
+  const materialRef = useRef<THREE.ShaderMaterial>(null);
 
-    if (elapsedTime < FADE_IN_START_SECONDS) return;
+  const handleChangeImage = useCallback(() => {
+    const materialElem = materialRef.current;
+    if (!materialElem) return;
 
-    if (meshScale > SCALE_SIZE) {
-      materialRef.current.opacity = 1;
-      return;
-    }
+    const { dispFactor, currentImage, nextImage } = materialElem.uniforms;
 
-    meshRef.current.scale.add({ x: delta, y: delta, z: 0 });
-    materialRef.current.opacity = meshScale / SCALE_SIZE;
-  });
+    gsap.to(dispFactor, {
+      value: 1,
+      duration: 3,
+      ease: "sine.inOut",
+      onStart: () => {
+        currentImage.value = new THREE.Texture();
+        nextImage.value = whiteshipTexture;
+      },
+      onComplete: () => {
+        dispFactor.value = 0;
+      },
+    });
+
+    gsap.to(dispFactor, {
+      value: 1,
+      delay: 3,
+      duration: 5,
+      ease: "sine.inOut",
+      onStart: () => {
+        currentImage.value = whiteshipTexture;
+        nextImage.value = blueshipTexture;
+      },
+    });
+  }, [blueshipTexture, whiteshipTexture]);
+
+  useEffect(() => {
+    handleChangeImage();
+  }, [handleChangeImage]);
 
   return (
-    <mesh ref={meshRef} position={position}>
-      <planeGeometry args={[2, 2]} />
-      <meshStandardMaterial
-        ref={materialRef}
-        map={texture}
-        transparent={true}
-        opacity={0}
-      />
+    <mesh position={position}>
+      <planeGeometry args={[3, 3]} />
+      <imageTransitionMaterial ref={materialRef} transparent={true} />
     </mesh>
   );
 }
