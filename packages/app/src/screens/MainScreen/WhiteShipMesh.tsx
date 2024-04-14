@@ -3,10 +3,10 @@ import gsap from "gsap";
 import { useCallback, useEffect, useRef } from "react";
 import * as THREE from "three";
 import { TextureLoader } from "three";
-import blueship from "../assets/spaceship_blue.png";
-import whiteship from "../assets/spaceship_white.png";
+import { CHANGE_DURATION, CHANGE_START_DELAY } from ".";
+import blueship from "../../assets/spaceship_blue.png";
+import whiteship from "../../assets/spaceship_white.png";
 import ImageTransitionMaterial from "./ImageTransitionMaterial";
-import { CHANGE_DURATION, CHANGE_START_DELAY } from "./Screen";
 
 extend({
   ImageTransitionMaterial,

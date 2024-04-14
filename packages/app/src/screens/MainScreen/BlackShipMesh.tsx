@@ -3,13 +3,8 @@ import gsap from "gsap";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { TextureLoader } from "three";
-import blackship from "../assets/spaceship_black.png";
-import {
-  CHANGE_DURATION,
-  CHANGE_START_DELAY,
-  COUNTS,
-  GEOMETRY_SIZE,
-} from "./Screen";
+import { CHANGE_DURATION, CHANGE_START_DELAY, COUNTS, GEOMETRY_SIZE } from ".";
+import blackship from "../../assets/spaceship_black.png";
 
 function BlackShipMesh({
   position,
